@@ -57,8 +57,6 @@ st.pyplot(fig)
 st.markdown("#### Average salary by job sector")
 
 
-salary_by_sector = (df.groupby(by=["Job Sector"]).mean()[["Salary Range"]].sort_values(by="Salary Range"))
-
 fig1, ax1 = plt.subplots(figsize =(16, 9))
 ax1.barh(df['Job Sector'], df['Salary Range'])
 ax1.set_xlabel("Average Salary", color = 'k')
