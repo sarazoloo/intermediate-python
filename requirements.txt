@@ -3,3 +3,6 @@ pandas
 numpy
 bs4
 requests
+plotly
+time
+datetime
