@@ -8,6 +8,8 @@ from bs4 import BeautifulSoup
 
 st.title('Zangia Job Listings')
 
+st.markdown(f""" ## Zangia data scaped and loaded""")
+
 baseurl = 'https://www.zangia.mn/'
 
 
