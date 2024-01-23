@@ -42,14 +42,16 @@ def scrape_listing(joblinks):
             for item in jobs.find_all('div', class_ = 'job-body'):
                 title = item.find('h3').text.split("/",1)[0] # this is splitting the string by "/" and getting the first element
                 divs = item.find_all('div', class_ = 'section') # there are also a few divs with the same class so this makes it easier to choose which div to get
-                description = divs[0].get_text().strip().replace('Гүйцэтгэх үндсэн үүрэг','').replace('\n',' ')
+                main_responsibility = divs[0].get_text().strip().replace('Гүйцэтгэх үндсэн үүрэг','').replace('\n',' ')
             
                 details = item.find('div', class_ = 'details')
                 spans = details.find_all('span')
                 sector = spans[1].get_text().strip() #there are 4 different spans so this chooses the first one
-                salary_range = spans[-1].get_text().strip().replace('Тохиролцоно','').replace(' -ааc дээш','') # this chose the last span
-                job_dict = {'Job Title':title, 'Job Description':description, 'Job Sector':sector, 
-                            'Salary Range': salary_range} 
+                salary_range = jobs.find('div', class_ = 'salary')# this chose the last span
+                salary_min = salary_range.get_text().replace(",", '').replace("₮", '').split('-')[0].strip()
+                salary_max = salary_range.get_text().replace(",", '').replace("₮", '').split('-')[0].strip()
+                job_dict = {'Job Title':title, 'Job Description':main_responsibility, 'Job Sector':sector, 
+                            'Salary Min': salary_min, 'Salary Max': salary_max} 
                 job_result.append(job_dict)
         
                 data = pd.DataFrame(job_result)
