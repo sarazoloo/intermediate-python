@@ -20,7 +20,7 @@ def scrape_links(a):
     
     '''
     for i in range(1,a):
-        url = requests.get("https://www.zangia.mn/job/list/pg.(i)")
+        url = requests.get(f"""https://www.zangia.mn/job/list/pg.{i}""")
         soup = BeautifulSoup(url.text, 'html.parser')
         rows = soup.find('div', class_ = 'list')
     
