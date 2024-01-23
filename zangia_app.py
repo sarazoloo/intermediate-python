@@ -19,13 +19,14 @@ def scrape_links(a):
     a and b both must be an integer.
     
     '''
+    links = []
     for i in range(1,a):
         url = requests.get(f"""https://www.zangia.mn/job/list/pg.{i}""")
         soup = BeautifulSoup(url.text, 'html.parser')
         rows = soup.find('div', class_ = 'list')
     
         row = rows.find_all('div', class_ = 'ad')
-        links = []
+        
         for item in row:
             for link in item.find_all('a', href=True):
                 links.append(baseurl + link['href'])
